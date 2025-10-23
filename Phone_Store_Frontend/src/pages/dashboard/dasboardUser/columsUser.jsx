@@ -74,17 +74,23 @@ export const columns = [
           </button>
           {/* Button Delete */}
           <AlertDialog>
-            <AlertDialogTrigger><Trash2 size={20} /></AlertDialogTrigger>
+            <AlertDialogTrigger>
+              <Trash2 size={20} />
+            </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Apakah Anda yakin menghapus data</AlertDialogTitle>
+                <AlertDialogTitle>
+                  Apakah Anda yakin menghapus data
+                </AlertDialogTitle>
                 <AlertDialogDescription>
                   Data yang sudah terhapus tidak bisa dikembalikan.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>No</AlertDialogCancel>
-                <AlertDialogAction onClick={() => handleDeleteUser(id)}>Yes</AlertDialogAction>
+                <AlertDialogCancel onClick={() => {}}>No</AlertDialogCancel>
+                <AlertDialogAction onClick={() => handleDeleteUser(id)}>
+                  Yes
+                </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

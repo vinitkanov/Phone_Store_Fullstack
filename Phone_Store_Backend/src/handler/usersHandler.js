@@ -44,7 +44,7 @@ export const getUserByIdHandler = async (req, res) => {
   }
 };
 
-export const addUserHandler = async (req, res) => {
+export const createUserHandler = async (req, res) => {
   try {
     const {
       fullname,
