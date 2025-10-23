@@ -1,10 +1,9 @@
 import { pool } from "../db.js";
 
-//Get all user data (WITHOUT passwords)
 export const getAllUserHandler = async (req, res) => {
   try {
     const [users] = await pool.query(
-      "SELECT id, fullname, username, email, role, address, phone_number, age, created_at, updated_at FROM users"
+      "SELECT id, fullname, username, email, role, address, phone_number, age, created_at, updated_at FROM users",
     );
     res.status(200).json({
       status: "success",
@@ -19,13 +18,12 @@ export const getAllUserHandler = async (req, res) => {
   }
 };
 
-//Get user by ID (WITHOUT password, only required fields)
 export const getUserByIdHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const [user] = await pool.query(
       "SELECT id, fullname, username, email, role FROM users WHERE id = ?",
-      [id]
+      [id],
     );
     if (user.length === 0) {
       return res.status(404).json({
@@ -46,7 +44,6 @@ export const getUserByIdHandler = async (req, res) => {
   }
 };
 
-// Add user handler (accepts password but doesn't return it)
 export const addUserHandler = async (req, res) => {
   try {
     const {
@@ -60,7 +57,6 @@ export const addUserHandler = async (req, res) => {
       age,
     } = req.body;
 
-    // Validation for required fields
     if (!fullname || !username || !email || !password) {
       return res.status(400).json({
         status: "fail",
@@ -79,7 +75,7 @@ export const addUserHandler = async (req, res) => {
         address,
         phone_number,
         age,
-      ]
+      ],
     );
 
     res.status(201).json({
@@ -104,8 +100,6 @@ export const addUserHandler = async (req, res) => {
   }
 };
 
-// Delete user handler
-
 export const deleteUserHandler = async (req, res) => {
   const { id } = req.params;
   try {
@@ -116,7 +110,7 @@ export const deleteUserHandler = async (req, res) => {
       return res.status(404).json({
         status: "fail",
         message: "User not found",
-      })
+      });
     }
 
     res.status(200).json({
@@ -132,16 +126,14 @@ export const deleteUserHandler = async (req, res) => {
   }
 };
 
-
-// Update user handler 
-
 export const updateUserHandler = async (req, res) => {
   const { id } = req.params;
-  const { fullname, username, email, role, address, phone_number, age } = req.body;
+  const { fullname, username, email, role, address, phone_number, age } =
+    req.body;
   try {
     const [result] = await pool.query(
       "UPDATE users SET fullname = ?, username = ?, email = ?, role = ?, address = ?, phone_number = ?, age = ? WHERE id = ?",
-      [fullname, username, email, role, address, phone_number, age, id]
+      [fullname, username, email, role, address, phone_number, age, id],
     );
     if (result.affectedRows === 0) {
       return res.status(404).json({
@@ -153,8 +145,7 @@ export const updateUserHandler = async (req, res) => {
       status: "success",
       message: "User updated successfully",
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
     res.status(500).json({
       status: "error",
